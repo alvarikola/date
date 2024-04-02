@@ -72,7 +72,7 @@ class Date:
     @property
     def short_date(self) -> str:
         '''02/09/2003'''
-        ...
+        return f"{self.day}/{self.month}/{self.year}"
 
     def __str__(self):
         '''MARTES 2 DE SEPTIEMBRE DE 2003'''
@@ -103,4 +103,5 @@ uno = Date(2, 4, 2024)
 print(uno.get_delta_days(2, 4, 2024))
 print(uno.weekday)
 print(uno.is_weekend)
+print(uno.short_date)
     
