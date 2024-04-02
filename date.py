@@ -90,20 +90,14 @@ class Date:
         2) Restar un número de días la fecha -> Nueva fecha'''
         ...
 
-    def __lt__(self, other) -> bool:
-        ...
+    def __lt__(self, other) -> bool:   # menor que
+        pass
 
-    def __gt__(self, other) -> bool:
-        ...
+    def __gt__(self, other) -> bool:   # mayor que
+        pass
 
-    def __eq__(self, other) -> bool:
-        ...
+    def __eq__(self, other) -> bool:   # igual
+        pass
 
 
 
-uno = Date(2, 4, 2024)
-print(uno.get_delta_days(2, 4, 2024))
-print(uno.weekday)
-print(uno.is_weekend)
-print(uno.short_date)
-print(uno)
