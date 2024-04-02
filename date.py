@@ -76,7 +76,9 @@ class Date:
 
     def __str__(self):
         '''MARTES 2 DE SEPTIEMBRE DE 2003'''
-        ...
+        diasSemana = ["DOMINGO", "LUNES", "MARTES", "MIERCOLES", "JUEVES", "VIERNES", "SABADO"]
+        meses = ["ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO, ", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"] 
+        return f"{diasSemana[self.weekday]} {self.day} DE {meses[self.month - 1]} DE {self.year}"
 
     def __add__(self, days: int) -> Date:
         '''Sumar un número de días a la fecha'''
@@ -104,4 +106,4 @@ print(uno.get_delta_days(2, 4, 2024))
 print(uno.weekday)
 print(uno.is_weekend)
 print(uno.short_date)
-    
+print(uno)
