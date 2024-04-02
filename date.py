@@ -66,7 +66,8 @@ class Date:
 
     @property
     def is_weekend(self) -> bool:
-        ...
+        if self.weekday == 0 or self.weekday == 6:
+            return True
 
     @property
     def short_date(self) -> str:
@@ -98,7 +99,8 @@ class Date:
 
 
 
-uno = Date(7, 4, 2024)
+uno = Date(2, 4, 2024)
 print(uno.get_delta_days(2, 4, 2024))
 print(uno.weekday)
+print(uno.is_weekend)
     
