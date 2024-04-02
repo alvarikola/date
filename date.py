@@ -37,10 +37,26 @@ class Date:
 
     def get_delta_days(self, day: int, month: int, year: int) -> int:
         '''Número de días transcurridos desde el 1-1-1900 hasta la fecha'''
-        fechaInicial = 1, 1, 1900
-        fechaActual = day, month, year
-        resultadoDias = fechaInicial - fechaActual
-        return resultadoDias 
+        diaInicial = 1
+        mesInicial = 1
+        anoInicial = 1900
+        diaActual = day
+        mesActual = month
+        anoActual = year
+        diasTranscurridos = 0
+      
+        while anoInicial < anoActual:
+            diasTranscurridos += 365
+            if Date.is_leap_year(anoInicial):
+                diasTranscurridos += 1
+            anoInicial += 1
+
+        while mesInicial < mesActual:
+            diasTranscurridos += Date.days_in_month(mesInicial, anoInicial)
+            mesInicial += 1
+
+        diasTranscurridos += (diaActual - diaInicial)
+        return diasTranscurridos
 
     @property
     def weekday(self) -> int:
@@ -80,6 +96,7 @@ class Date:
         ...
 
 
-if __name__ == "main":
-    pass
-    #Aquí va un código de prueba
+
+uno = Date(7, 4, 2024)
+print(uno.get_delta_days(2, 4, 2024))
+    
