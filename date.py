@@ -14,9 +14,9 @@ class Date:
         self.year = year
         if self.day > 31 or self.day <= 0:
             self.day = 1
-        if self.month > 12 or self.day <= 0:
+        if self.month > 12 or self.month <= 0:
             self.month = 1
-        if self.year < 1900:
+        if self.year < 1900 or self.year > 2050:
             self.year = 1900
         
 
@@ -86,22 +86,49 @@ class Date:
 
     def __add__(self, days: int) -> Date:
         '''Sumar un número de días a la fecha'''
-        ...
+        day = self.day
+        while days > 0:
+            diasEnMes = self.days_in_month(self.month, self.year) - day + 1
+            if days >= diasEnMes:
+                days -= diasEnMes
+                self.month += 1
+                if self.month > 12:
+                    self.month = 1
+                    self.year += 1
+                day = 1
+            else:
+                day += days
+                days = 0
+        return Date(day, self.month, self.year)
 
     def __sub__(self, other: Date | int) -> int | Date:
         '''Dos opciones:
         1) Restar una fecha a otra fecha -> Número de días
+        
         2) Restar un número de días la fecha -> Nueva fecha'''
         ...
 
     def __lt__(self, other) -> bool:   # menor que
-        pass
+        if self.day < other.day:
+            return True
+        elif self.month < other.month:
+            return True
+        elif self.year < other.year:
+            return True
+    
 
     def __gt__(self, other) -> bool:   # mayor que
-        pass
+        if self.day > other.day:
+            return True
+        elif self.month > other.month:
+            return True
+        elif self.year > other.year:
+            return True
 
     def __eq__(self, other) -> bool:   # igual
-        pass
+        if self.day == other.day and self.month == other.month and self.year == other.year:
+            return True
+        return False
 
 
 
