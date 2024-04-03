@@ -12,6 +12,13 @@ class Date:
         self.day = day
         self.month = month
         self.year = year
+        if self.day > 31 or self.day <= 0:
+            self.day = 1
+        if self.month > 12 or self.day <= 0:
+            self.month = 1
+        if self.year < 1900:
+            self.year = 1900
+        
 
     @staticmethod
     def is_leap_year(year: int) -> bool:
@@ -35,33 +42,30 @@ class Date:
         else:
             return days[month - 1]
 
-    def get_delta_days(self, day: int, month: int, year: int) -> int:
+    def get_delta_days(self) -> int:
         '''Número de días transcurridos desde el 1-1-1900 hasta la fecha'''
         diaInicial = 1
         mesInicial = 1
         anoInicial = 1900
-        diaActual = day
-        mesActual = month
-        anoActual = year
         diasTranscurridos = 0
       
-        while anoInicial < anoActual:
+        while anoInicial < self.year:
             diasTranscurridos += 365
             if Date.is_leap_year(anoInicial):
                 diasTranscurridos += 1
             anoInicial += 1
 
-        while mesInicial < mesActual:
+        while mesInicial < self.month:
             diasTranscurridos += Date.days_in_month(mesInicial, anoInicial)
             mesInicial += 1
 
-        diasTranscurridos += (diaActual - diaInicial)
+        diasTranscurridos += (self.day - diaInicial)
         return diasTranscurridos
 
     @property
     def weekday(self) -> int:
         '''Día de la semana de la fecha (0 para domingo, ..., 6 para sábado).'''
-        diaSemana = (self.get_delta_days(self.day, self.month, self.year) + 1) % 7
+        diaSemana = (self.get_delta_days() + 1) % 7
         return diaSemana
 
     @property
@@ -72,7 +76,7 @@ class Date:
     @property
     def short_date(self) -> str:
         '''02/09/2003'''
-        return f"{self.day}/{self.month}/{self.year}"
+        return f"{self.day:02d}/{self.month:02d}/{self.year}"
 
     def __str__(self):
         '''MARTES 2 DE SEPTIEMBRE DE 2003'''
