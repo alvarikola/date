@@ -103,10 +103,23 @@ class Date:
 
     def __sub__(self, other: Date | int) -> int | Date:
         '''Dos opciones:
-        1) Restar una fecha a otra fecha -> Número de días
-        
-        2) Restar un número de días la fecha -> Nueva fecha'''
-        ...
+        1) Restar una fecha a otra fecha -> Número de días'''
+        return self.get_delta_days() - other.get_delta_days()
+        '''2) Restar un número de días la fecha -> Nueva fecha'''
+        day = self.day
+        while days > 0:
+            diasEnMes = self.days_in_month(self.month, self.year) - day + 1
+            if days >= diasEnMes:
+                days -= diasEnMes
+                self.month += 1
+                if self.month > 12:
+                    self.month = 1
+                    self.year += 1
+                day = 1
+            else:
+                day += days
+                days = 0
+        return Date(day, self.month, self.year)
 
     def __lt__(self, other) -> bool:   # menor que
         if self.day < other.day:
