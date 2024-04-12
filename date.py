@@ -104,8 +104,21 @@ class Date:
     def __sub__(self, other: Date | int) -> int | Date:
         '''Dos opciones:
         1) Restar una fecha a otra fecha -> Número de días'''
-        return self.get_delta_days() - other.get_delta_days()
-        '''2) Restar un número de días la fecha -> Nueva fecha'''
+        if isinstance(other, Date):   # El isinstance se utiliza para que la función nos de True si el tipo es el esperado en este caso Date
+            return self.get_delta_days() - other.get_delta_days()
+    
+        #2) Restar un número de días la fecha -> Nueva fecha
+        elif isinstance(other, int):  # El isinstance se utiliza para que la función nos de True si el tipo es el esperado en este caso int
+            dia = self.day - other
+            
+            while dia < 1:
+                self.month -= 1
+                if self.month < 1:
+                    self.month = 12
+                    self.year -= 1
+                dia += self.days_in_month(self.month, self.year)
+            
+            return Date(dia, self.month, self.year)
         
 
     def __lt__(self, other) -> bool:   # menor que
